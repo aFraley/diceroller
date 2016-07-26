@@ -53,11 +53,11 @@
 			var out = "Roll " + dice + "d" + sides + " [";
 			var sum = 0;
 			//rolls dice, invokes loop if more than one die are rolled
-			for (j = dice; j > 0; j--) {
+			for (var i = dice; i > 0; i--) {
 				var roll = Math.floor(Math.random() * sides) +1;
 					sum += roll;
 					out += roll;
-					if (j==1) {
+					if (i==1) {
 						out += "]" + "\n" + sum;
 					} else {
 						out += "";
