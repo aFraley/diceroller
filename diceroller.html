@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body {
+			background-color: #221E1D
+		}
+		#container {
+			background-color: #FAF5E6;
+			width:960px;
+			padding: 15px;
+			margin: auto;
+			
+		}
+		#inside {
+			border: 2px solid #291F00;
+			border-radius: 11px;
+			background-color: #FFFFFF;
+			width: 760px;
+			padding: 11px;
+			margin: auto;
+			box-shadow: 8px 8px 6px #D1C9B2;
+		}
+		body {
+			font-family: Verdana, Arial, sans-serif;
+		}
+		h3 {
+			clear: left;
+		}
+		table {
+			width: 100%;
+		}
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		th, td {
+			padding: 6px;
+			text-align: justify;
+			
+		}
+		input {
+			text-align: center;
+		}
+	</style>
+	<script>
+		function roll(){
+			var dice = document.getElementById("dice").value;
+			var sides = document.getElementById("sides").value;
+			var e = document.getElementById("posNeg").value;
+			var mod = 0;
+			var d20 = document.getElementById("d20");
+			var out = "Roll " + dice + "d" + sides + " [";
+			var sum = 0;
+			//rolls dice, invokes loop if more than one die are rolled
+			for (j = dice; j > 0; j--) {
+				var roll = Math.floor(Math.random() * sides) +1;
+					sum += roll;
+					out += roll;
+					if (j==1) {
+						out += "]" + "\n" + sum;
+					} else {
+						out += "";
+					}
+
+					//determines mod, value of sum and mod
+					mod = document.getElementById("mod").value;
+					if (e == "+") {
+						sum += 1 * mod;
+						out += " + ";
+					}else if (e == "-"){
+						sum -= 1 * mod;
+						out += " - ";
+					}
+
+				}
+				//final output
+				d20.value = sum;
+				out += mod + " = " + sum + "\n";
+				var results = document.getElementById("results");
+				results.value = out + results.value;
+		}
+		//resets all fields
+		function reset() {
+			var sides = document.getElementById("sides").value = 20;
+			var mod = document.getElementById("mod")
+			var dice = document.getElementById("dice").value = 1;
+			var d20 = document.getElementById("d20").value = "";
+			var results = document.getElementById("results").value = "";
+		
+		}
+		//clears text area
+		function clearResults() {
+			var results = document.getElementById("results").value = "";
+			var d20 = document.getElementById("d20").value = "";
+		}
+	</script>
+</head>
+<body>
+	<div id="container">
+	<div id="inside">
+	<form>
+	<table border="1"> 
+		<tr>
+			<th> DIE </th>
+			<th> + - </th>
+			<th>Modifier </th>
+			<th> Results </th>
+		</tr>
+		<tr>
+			<td> <input id="dice" size="3" value="1" type="text"> </input> d <input id="sides" size="3" value="20" type="text"> </input> <button type="button" onclick="roll()">ROLL</button> </td>
+			<td> <select id="posNeg"> <option value="+"> + </option> <option value="-"> - </option></select></td>
+			<td> <input id="mod" size="3" value="0" type="text"> </input> </td>
+			<td> = <input id="d20" size="3" type="text"> </input> </td>
+			
+		</tr>
+		<button type="button" onclick="reset()"> RESET </button>
+	</form>
+	</table>
+	<h3> Roll History </h3>
+	<textarea id="results" cols="30" rows="19" readonly="readonly">
+	</textarea>
+	<button type="button" onclick="clearResults()"> Clear Results </button>
+	</div>
+	</div>
+</body>
+</html>
